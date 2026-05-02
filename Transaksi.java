@@ -1,6 +1,5 @@
 package LK08;
 
-// Transaksi.java
 import java.util.Objects;
 
 public class Transaksi {
@@ -8,8 +7,8 @@ public class Transaksi {
     private String nis;
     private String kodeBuku;
     private String tglPinjam;
-    private String tglKembali; // Kosong jika status = 0
-    private int status; // 0: Belum Kembali, 1: Sudah Kembali
+    private String tglKembali;
+    private int status;
 
     public Transaksi(String kodeTrans, String nis, String kodeBuku, String tglPinjam, String tglKembali, int status) {
         this.kodeTrans = kodeTrans.trim();
@@ -20,7 +19,6 @@ public class Transaksi {
         this.status = status;
     }
 
-    // Getters
     public String getKodeTrans() { return kodeTrans; }
     public String getNis() { return nis; }
     public String getKodeBuku() { return kodeBuku; }
@@ -28,7 +26,6 @@ public class Transaksi {
     public String getTglKembali() { return tglKembali; }
     public int getStatus() { return status; }
 
-    // Setters (penting untuk proses pengembalian)
     public void setTglKembali(String tglKembali) {
         this.tglKembali = tglKembali.trim();
     }
@@ -37,12 +34,10 @@ public class Transaksi {
         this.status = status;
     }
 
-    // Metode untuk mengubah objek menjadi format string untuk disimpan di file
     public String toFileString() {
         return kodeTrans + ";" + nis + ";" + kodeBuku + ";" + tglPinjam + ";" + tglKembali + ";" + status;
     }
 
-    // Digunakan oleh FileManager untuk memuat data dari file
     public static Transaksi fromFileString(String line) {
         String[] parts = line.split(";", 6);
         if (parts.length < 6) throw new IllegalArgumentException("Invalid Transaksi format: " + line);
