@@ -1,6 +1,5 @@
 package LK08;
 
-// LoginForm.java
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -8,13 +7,13 @@ import java.util.List;
 
 public class LoginForm extends JFrame {
     private JTextField nipField;
-    private JPasswordField namaField; // Menggunakan JPasswordField meskipun ini 'nama'
+    private JPasswordField namaField; 
 
     public LoginForm() {
         setTitle("Login Pegawai Perpustakaan SMP");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 200);
-        setLocationRelativeTo(null); // Tampil di tengah layar
+        setLocationRelativeTo(null); 
         initComponents();
         setVisible(true);
     }
@@ -42,7 +41,7 @@ public class LoginForm extends JFrame {
         nipField = new JTextField(15);
         add(nipField, gbc);
 
-        // Input Nama (sebagai 'password' untuk login sederhana)
+        // Input Nama
         gbc.gridx = 0;
         gbc.gridy = 2;
         add(new JLabel("Nama:"), gbc);
@@ -60,11 +59,7 @@ public class LoginForm extends JFrame {
         add(loginButton, gbc);
     }
 
-    /**
-     * Event Listener: Mencoba melakukan login pegawai.
-     * Memvalidasi NIP dan Nama terhadap data di pegawai.txt.
-     */
-    private void attemptLogin() { //
+    private void attemptLogin() { 
         String nip = nipField.getText().trim();
         String nama = new String(namaField.getPassword()).trim();
 
