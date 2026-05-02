@@ -1,0 +1,6 @@
+B001;Matematika SD;Pendidikan
+B003;Penjajahan Belanda;Sejarah
+B004;Fisika Dasar;Sains
+B005;Biologi Manusia;Sains
+B006;Tentang Kamu;Novel
+B007;Janji;Novel

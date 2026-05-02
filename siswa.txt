@@ -1,0 +1,6 @@
+001;Andi Susanto;Jl Merdeka 1
+002;Ulfa Aulia;Jl Sudirman 10
+003;Budi Santoso;Jl Gatot Subroto 5
+005;Agus Salim;Jl Gajah Mada 15
+006;Winnola;Malang
+007;Athiya Eka;Jl Kertosari 15

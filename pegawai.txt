@@ -1,0 +1,6 @@
+P001;Admin Perpustakaan;1980-05-12
+P002;Sri Lestari;1985-03-22
+P003;Ahmad Yani;1990-02-22
+P004;Fitriani;1990-01-15
+P005;Anton;1990-08-17
+P006;Budiman;1991-02-21
