@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-// TransaksiPanel.java
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -44,11 +43,9 @@ public class TransaksiPanel extends JPanel {
         
         add(splitPane, BorderLayout.CENTER);
 
-        // TAMBAHKAN DI SINI: Refresh tabel setelah kedua tabel selesai dibuat
         refreshTables();
     }
-    
-    // --- Data Loading ---
+
     private void loadAllData() { //
         try {
             transaksiList = FileManager.loadList(FileManager.TRANSAKSI_FILE, Transaksi::fromFileString);
@@ -64,8 +61,7 @@ public class TransaksiPanel extends JPanel {
 
     private void refreshTables() {
         loadAllData();
-        
-        // Refresh Tabel Peminjaman yang sedang aktif (Status 0)
+
         pinjamTableModel.setRowCount(0);
         transaksiList.stream()
                 .filter(t -> t.getStatus() == 0)
@@ -142,11 +138,6 @@ public class TransaksiPanel extends JPanel {
     }
 
     // --- Event Listener Implementations ---
-
-    /**
-     * Event Listener: Proses Peminjaman Buku.
-     * Mengimplementasikan aturan: Maksimal pinjam 2 buku per siswa.
-     */
     private void pinjamBuku() { //
         String nis = nisPinjamField.getText().trim();
         String kodeBuku = kodeBukuPinjamField.getText().trim();
@@ -183,8 +174,7 @@ public class TransaksiPanel extends JPanel {
             // 3. Buat Transaksi Baru
             String kodeT = "T" + (transaksiList.size() + 1); // Kode Transaksi Otomatis
             String tglPinjam = LocalDate.now().format(DATE_FORMAT);
-            
-            // Kode Transaksi, NIS, Kode Buku, Tgl Pinjam, Tgl Kembali (kosong), Status (0)
+
             Transaksi newTrans = new Transaksi(kodeT, nis, kodeBuku, tglPinjam, "", 0); 
             
             transaksiList.add(newTrans);
@@ -202,11 +192,7 @@ public class TransaksiPanel extends JPanel {
             JOptionPane.showMessageDialog(this, "Error saat proses peminjaman: " + ex.getMessage(), "Kesalahan I/O File", JOptionPane.ERROR_MESSAGE); //
         }
     }
-    
-    /**
-     * Event Listener: Proses Pengembalian Buku.
-     * Mencari transaksi dan mengubah status menjadi 1 (sudah kembali).
-     */
+
     private void kembaliBuku() { //
         String kodeTrans = kodeTransKembaliField.getText().trim();
         
@@ -238,7 +224,6 @@ public class TransaksiPanel extends JPanel {
             targetTrans.setStatus(1);
             targetTrans.setTglKembali(LocalDate.now().format(DATE_FORMAT));
             
-            // Operasi I/O File: Simpan List Transaksi yang sudah diupdate
             FileManager.saveList(FileManager.TRANSAKSI_FILE, transaksiList); //
 
             JOptionPane.showMessageDialog(this, "Pengembalian buku sukses! Kode Trans: " + kodeTrans, "Sukses Kembali", JOptionPane.INFORMATION_MESSAGE);
@@ -251,7 +236,4 @@ public class TransaksiPanel extends JPanel {
         }
     }
 }
-
-
-
 
