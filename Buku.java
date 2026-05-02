@@ -1,6 +1,5 @@
 package LK08;
 
-// Buku.java
 public class Buku {
     private String kode;
     private String judul;
@@ -16,12 +15,10 @@ public class Buku {
     public String getJudul() { return judul; }
     public String getJenis() { return jenis; }
 
-    // Metode untuk mengubah objek menjadi format string untuk disimpan di file
     public String toFileString() {
         return kode + ";" + judul + ";" + jenis;
     }
 
-    // Digunakan oleh FileManager untuk memuat data dari file
     public static Buku fromFileString(String line) {
         String[] parts = line.split(";", 3);
         if (parts.length < 3)
