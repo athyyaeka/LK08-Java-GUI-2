@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-// SiswaPanel.java
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -30,20 +29,16 @@ public class SiswaPanel extends JPanel {
     public SiswaPanel() {
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        
-        // 1. Gabungkan Form dan Tombol ke dalam satu panel 'topPanel'
+
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.add(createFormPanel(), BorderLayout.NORTH);   // Form di paling atas
         topPanel.add(createButtonPanel(), BorderLayout.CENTER); // Tombol tepat di bawah form
-        
-        // 2. Masukkan topPanel ke NORTH, dan Tabel ke CENTER
+
         add(topPanel, BorderLayout.NORTH);
         add(createTablePanel(), BorderLayout.CENTER); // Tabel akan fleksibel di tengah
-        
-        // 3. Load data setelah semua komponen (termasuk tableModel) dibuat
+
         loadData();
-        
-        // Listener untuk klik tabel
+
         table.getSelectionModel().addListSelectionListener(e -> { 
             if (!e.getValueIsAdjusting() && table.getSelectedRow() != -1) {
                 fillFormFromTable();
@@ -91,8 +86,7 @@ public class SiswaPanel extends JPanel {
     JButton updateBtn = new JButton("Update");
     JButton hapusBtn = new JButton("Hapus");
     JButton clearBtn = new JButton("Clear");
-    
-    // [PERBAIKAN] Hilangkan komentar dan hubungkan tombol ke fungsinya
+
     tambahBtn.addActionListener(e -> addData()); 
     updateBtn.addActionListener(e -> updateData()); 
     hapusBtn.addActionListener(e -> deleteData()); 
@@ -119,12 +113,8 @@ public class SiswaPanel extends JPanel {
     
     // --- Data Management Methods ---
 
-    /**
-     * Operasi I/O File: Memuat data dari file ke list dan tabel.
-     */
     private void loadData() { //
         try {
-            // Menggunakan method loadList dari FileManager
             dataList = FileManager.loadList(FileManager.SISWA_FILE, Siswa::fromFileString); //
             refreshTable();
         } catch (IOException ex) {
@@ -134,7 +124,7 @@ public class SiswaPanel extends JPanel {
     }
 
     private void refreshTable() {
-        tableModel.setRowCount(0); // Kosongkan tabel
+        tableModel.setRowCount(0); 
         for (Siswa s : dataList) {
             tableModel.addRow(new Object[] {s.getId(), s.getNama(), s.getAlamat()});
         }
@@ -251,7 +241,3 @@ public class SiswaPanel extends JPanel {
         table.clearSelection();
     }
 }
-
-
-
-
