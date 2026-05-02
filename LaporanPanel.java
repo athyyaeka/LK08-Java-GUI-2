@@ -33,7 +33,7 @@ public class LaporanPanel extends JPanel {
         reportTable = new JTable(reportTableModel);
         add(new JScrollPane(reportTable), BorderLayout.CENTER);
 
-        // 3. Tombol Segarkan (Refresh)
+        // 3. Tombol Refresh
         JButton refreshBtn = new JButton("Segarkan Data Laporan");
         refreshBtn.addActionListener(e -> showOverdueReport());
         
@@ -46,7 +46,7 @@ public class LaporanPanel extends JPanel {
     }
 
     private void showOverdueReport() {
-        reportTableModel.setRowCount(0); // Bersihkan tabel sebelum dimuat ulang
+        reportTableModel.setRowCount(0);
         try {
             // Load data dari file transaksi 
             List<Transaksi> transList = FileManager.loadList(FileManager.TRANSAKSI_FILE, Transaksi::fromFileString);
@@ -81,7 +81,7 @@ public class LaporanPanel extends JPanel {
                         });
                         
                     } catch (Exception e) {
-                        // Abaikan jika ada data tanggal yang formatnya korup/salah
+                        
                     }
                 }
             }
