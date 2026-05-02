@@ -21,7 +21,6 @@ public class Siswa extends Person {
         return super.toFileString() + ";" + alamat;
     }
 
-    // Digunakan oleh FileManager untuk memuat data dari file
     public static Siswa fromFileString(String line) {
         String[] parts = line.split(";", 3);
         if (parts.length < 3)
