@@ -1,9 +1,5 @@
 package LK08;
 
-/**
- * Kelas abstrak sebagai kelas induk untuk Siswa dan Pegawai.
- * Menyediakan atribut dasar id (NIS/NIP) dan nama.
- */
 abstract class Person {
     private String id;
     private String nama;
@@ -29,7 +25,6 @@ abstract class Person {
         this.nama = nama.trim();
     }
 
-    // Metode untuk mengubah objek menjadi format string untuk disimpan di file
     public String toFileString() {
         return id + ";" + nama;
     }
