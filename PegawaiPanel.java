@@ -1,6 +1,5 @@
 package LK08;
 
-// PegawaiPanel.java
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -17,20 +16,16 @@ public class PegawaiPanel extends JPanel {
     public PegawaiPanel() {
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        
-        // 1. Gabungkan Form dan Tombol ke dalam satu panel 'topPanel'
+
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.add(createFormPanel(), BorderLayout.NORTH);   // Form di paling atas
         topPanel.add(createButtonPanel(), BorderLayout.CENTER); // Tombol tepat di bawah form
-        
-        // 2. Masukkan topPanel ke NORTH, dan Tabel ke CENTER
+
         add(topPanel, BorderLayout.NORTH);
-        add(createTablePanel(), BorderLayout.CENTER); // Tabel akan fleksibel di tengah
-        
-        // 3. Load data setelah semua komponen (termasuk tableModel) dibuat
+        add(createTablePanel(), BorderLayout.CENTER); 
+
         loadData();
-        
-        // Listener untuk klik tabel
+
         table.getSelectionModel().addListSelectionListener(e -> { 
             if (!e.getValueIsAdjusting() && table.getSelectedRow() != -1) {
                 fillFormFromTable();
@@ -105,9 +100,6 @@ public class PegawaiPanel extends JPanel {
     
     // --- Data Management Methods ---
 
-    /**
-     * Operasi I/O File: Memuat data Pegawai dari file.
-     */
     private void loadData() { 
         try {
             dataList = FileManager.loadList(FileManager.PEGAWAI_FILE, Pegawai::fromFileString); 
