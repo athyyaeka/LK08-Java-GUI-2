@@ -1,6 +1,5 @@
 package LK08;
 
-// BukuPanel.java
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -17,22 +16,16 @@ public class BukuPanel extends JPanel {
     public BukuPanel() {
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        
-        // --- PERBAIKAN TATA LETAK (LAYOUT) DI SINI ---
-        
-        // 1. Buat wadah baru untuk menggabungkan Form dan Tombol
+
         JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.add(createFormPanel(), BorderLayout.NORTH); // Form di atas
-        topPanel.add(createButtonPanel(), BorderLayout.CENTER); // Tombol di bawah form
-        
-        // 2. Taruh wadah gabungan tadi di Atas (NORTH), dan Tabel di Tengah (CENTER)
+        topPanel.add(createFormPanel(), BorderLayout.NORTH); 
+        topPanel.add(createButtonPanel(), BorderLayout.CENTER); 
+
         add(topPanel, BorderLayout.NORTH);
-        add(createTablePanel(), BorderLayout.CENTER); // Tabel sekarang mengisi sisa layar
-        
-        // 3. Load Data seperti biasa
+        add(createTablePanel(), BorderLayout.CENTER); 
+
         loadData();
-        
-        // Event Listener: Klik baris di tabel mengisi form
+
         table.getSelectionModel().addListSelectionListener(e -> { 
             if (!e.getValueIsAdjusting() && table.getSelectedRow() != -1) {
                 fillFormFromTable();
@@ -98,24 +91,19 @@ public class BukuPanel extends JPanel {
         tableModel = new DefaultTableModel(new String[] {"Kode", "Judul", "Jenis Buku"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Tabel tidak bisa diedit langsung
+                return false;
             }
         };
         table = new JTable(tableModel);
         return new JScrollPane(table);
     }
-    
-    // --- Data Management Methods ---
-
-    /**
-     * Operasi I/O File: Memuat data Buku dari file.
-     */
+  
     private void loadData() { 
         try {
             dataList = FileManager.loadList(FileManager.BUKU_FILE, Buku::fromFileString); 
             refreshTable();
         } catch (IOException ex) {
-            // Penanganan Exception I/O File
+           
             JOptionPane.showMessageDialog(this, "Error saat memuat data Buku: " + ex.getMessage(), "Kesalahan I/O File", JOptionPane.ERROR_MESSAGE); 
         }
     }
@@ -164,7 +152,7 @@ public class BukuPanel extends JPanel {
             return;
         }
 
-        String kodeTarget = (String) tableModel.getValueAt(selectedRow, 0); // Kode tidak boleh diubah
+        String kodeTarget = (String) tableModel.getValueAt(selectedRow, 0); 
         String judul = judulField.getText().trim();
         String jenis = jenisField.getText().trim();
         
@@ -225,7 +213,7 @@ public class BukuPanel extends JPanel {
             kodeField.setText(tableModel.getValueAt(selectedRow, 0).toString());
             judulField.setText(tableModel.getValueAt(selectedRow, 1).toString());
             jenisField.setText(tableModel.getValueAt(selectedRow, 2).toString());
-            // Kode Buku tidak bisa diedit saat update, jadi di-disable
+
             kodeField.setEnabled(false); 
         }
     }
