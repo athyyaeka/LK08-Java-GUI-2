@@ -7,13 +7,12 @@ public class MainFrame extends JFrame {
 
     private final String loggedInPegawai;
 
-    // CONSTRUCTOR SESUAI DENGAN LAPORAN ASLI KAMU (Menerima NIP dan Nama)
     public MainFrame(String nip, String nama) {
         this.loggedInPegawai = nama + " (NIP: " + nip + ")";
         setTitle("Sistem Perpustakaan SMP - Logged in as: " + loggedInPegawai);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900, 700);
-        setLocationRelativeTo(null); // Tampil di tengah layar
+        setLocationRelativeTo(null); 
         
         try {
             initComponents();
@@ -21,8 +20,6 @@ public class MainFrame extends JFrame {
             JOptionPane.showMessageDialog(this, "Gagal memuat panel: " + e.getMessage());
             e.printStackTrace();
         }
-        
-        // INI DIA PENYELAMAT KITA! Baris yang bikin layarnya benar-benar muncul!
         setVisible(true); 
     }
 
