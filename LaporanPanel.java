@@ -53,8 +53,7 @@ public class LaporanPanel extends JPanel {
             LocalDate today = LocalDate.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-            for (Transaksi t : transList) {
-                // Filter: Hanya proses transaksi yang berstatus 0 (Belum Kembali) 
+            for (Transaksi t : transList) { 
                 if (t.getStatus() == 0) { 
                     try {
                         LocalDate tglPinjam = LocalDate.parse(t.getTglPinjam(), formatter);
