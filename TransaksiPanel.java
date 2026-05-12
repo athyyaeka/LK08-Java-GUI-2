@@ -46,13 +46,13 @@ public class TransaksiPanel extends JPanel {
         refreshTables();
     }
 
-    private void loadAllData() { //
+    private void loadAllData() { 
         try {
             transaksiList = FileManager.loadList(FileManager.TRANSAKSI_FILE, Transaksi::fromFileString);
             siswaList = FileManager.loadList(FileManager.SISWA_FILE, Siswa::fromFileString);
             bukuList = FileManager.loadList(FileManager.BUKU_FILE, Buku::fromFileString);
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Error saat memuat data Transaksi: " + ex.getMessage(), "Kesalahan I/O File", JOptionPane.ERROR_MESSAGE); //
+            JOptionPane.showMessageDialog(this, "Error saat memuat data Transaksi: " + ex.getMessage(), "Kesalahan I/O File", JOptionPane.ERROR_MESSAGE); 
             transaksiList = List.of(); 
             siswaList = List.of();
             bukuList = List.of();
@@ -69,7 +69,6 @@ public class TransaksiPanel extends JPanel {
                     t.getKodeTrans(), t.getNis(), t.getKodeBuku(), t.getTglPinjam()
                 }));
                 
-        // Refresh Tabel Pengembalian (Semua Transaksi)
         kembaliTableModel.setRowCount(0);
         transaksiList.stream()
                 .forEach(t -> kembaliTableModel.addRow(new Object[] {
@@ -77,7 +76,7 @@ public class TransaksiPanel extends JPanel {
                 }));
     }
 
-    // --- Panel Peminjaman ---
+    // Panel Peminjaman 
     private JPanel createPeminjamanPanel() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(BorderFactory.createTitledBorder("Peminjaman Buku (Maks. 2 Buku)"));
@@ -93,7 +92,7 @@ public class TransaksiPanel extends JPanel {
         form.add(kodeBukuPinjamField);
         
         JButton pinjamBtn = new JButton("Proses Pinjam");
-        pinjamBtn.addActionListener(e -> pinjamBuku()); //
+        pinjamBtn.addActionListener(e -> pinjamBuku()); 
         form.add(pinjamBtn);
 
         panel.add(form, BorderLayout.NORTH);
@@ -109,7 +108,7 @@ public class TransaksiPanel extends JPanel {
         return panel;
     }
 
-    // --- Panel Pengembalian ---
+    // Panel Pengembalian
     private JPanel createPengembalianPanel() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(BorderFactory.createTitledBorder("Pengembalian Buku"));
@@ -121,7 +120,7 @@ public class TransaksiPanel extends JPanel {
         form.add(kodeTransKembaliField);
         
         JButton kembaliBtn = new JButton("Proses Kembali");
-        kembaliBtn.addActionListener(e -> kembaliBuku()); //
+        kembaliBtn.addActionListener(e -> kembaliBuku()); 
         form.add(kembaliBtn);
         
         panel.add(form, BorderLayout.NORTH);
@@ -137,8 +136,7 @@ public class TransaksiPanel extends JPanel {
         return panel;
     }
 
-    // --- Event Listener Implementations ---
-    private void pinjamBuku() { //
+    private void pinjamBuku() { 
         String nis = nisPinjamField.getText().trim();
         String kodeBuku = kodeBukuPinjamField.getText().trim();
         
@@ -172,15 +170,14 @@ public class TransaksiPanel extends JPanel {
             }
 
             // 3. Buat Transaksi Baru
-            String kodeT = "T" + (transaksiList.size() + 1); // Kode Transaksi Otomatis
+            String kodeT = "T" + (transaksiList.size() + 1);
             String tglPinjam = LocalDate.now().format(DATE_FORMAT);
 
             Transaksi newTrans = new Transaksi(kodeT, nis, kodeBuku, tglPinjam, "", 0); 
             
             transaksiList.add(newTrans);
-            
-            // Operasi I/O File: Simpan List Transaksi
-            FileManager.saveList(FileManager.TRANSAKSI_FILE, transaksiList); //
+
+            FileManager.saveList(FileManager.TRANSAKSI_FILE, transaksiList); 
 
             JOptionPane.showMessageDialog(this, "Peminjaman berhasil! Kode Trans: " + kodeT, "Sukses Pinjam", JOptionPane.INFORMATION_MESSAGE);
             nisPinjamField.setText("");
@@ -188,12 +185,11 @@ public class TransaksiPanel extends JPanel {
             refreshTables();
             
         } catch (IOException ex) {
-            // Penanganan Exception I/O File
             JOptionPane.showMessageDialog(this, "Error saat proses peminjaman: " + ex.getMessage(), "Kesalahan I/O File", JOptionPane.ERROR_MESSAGE); //
         }
     }
 
-    private void kembaliBuku() { //
+    private void kembaliBuku() { 
         String kodeTrans = kodeTransKembaliField.getText().trim();
         
         if (kodeTrans.isEmpty()) {
@@ -224,15 +220,14 @@ public class TransaksiPanel extends JPanel {
             targetTrans.setStatus(1);
             targetTrans.setTglKembali(LocalDate.now().format(DATE_FORMAT));
             
-            FileManager.saveList(FileManager.TRANSAKSI_FILE, transaksiList); //
+            FileManager.saveList(FileManager.TRANSAKSI_FILE, transaksiList); 
 
             JOptionPane.showMessageDialog(this, "Pengembalian buku sukses! Kode Trans: " + kodeTrans, "Sukses Kembali", JOptionPane.INFORMATION_MESSAGE);
             kodeTransKembaliField.setText("");
             refreshTables();
             
         } catch (IOException ex) {
-            // Penanganan Exception I/O File
-            JOptionPane.showMessageDialog(this, "Error saat proses pengembalian: " + ex.getMessage(), "Kesalahan I/O File", JOptionPane.ERROR_MESSAGE); //
+            JOptionPane.showMessageDialog(this, "Error saat proses pengembalian: " + ex.getMessage(), "Kesalahan I/O File", JOptionPane.ERROR_MESSAGE); 
         }
     }
 }
