@@ -40,16 +40,15 @@ public class FileManager {
         }
     }
     
-    // --- Generic Load and Save Methods ---
+    // Generic Load and Save Methods
     public static <T> List<T> loadList(String fileName, Function<String, T> parser) throws IOException {
         List<T> list = new ArrayList<>();
-        List<String> lines = readAllLines(fileName); //
+        List<String> lines = readAllLines(fileName); 
         for (String line : lines) {
             try {
                 // Konversi baris teks menjadi objek T menggunakan parser yang diberikan.
                 list.add(parser.apply(line)); 
             } catch (Exception e) {
-                // Dalam GUI, error ini harus ditampilkan di JOptionPane
                 System.err.println("Error parsing line in " + fileName + ": " + e.getMessage());
             }
         }
