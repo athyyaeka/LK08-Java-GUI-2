@@ -35,7 +35,7 @@ public class SiswaPanel extends JPanel {
         topPanel.add(createButtonPanel(), BorderLayout.CENTER); // Tombol tepat di bawah form
 
         add(topPanel, BorderLayout.NORTH);
-        add(createTablePanel(), BorderLayout.CENTER); // Tabel akan fleksibel di tengah
+        add(createTablePanel(), BorderLayout.CENTER); 
 
         loadData();
 
@@ -104,22 +104,19 @@ public class SiswaPanel extends JPanel {
         tableModel = new DefaultTableModel(new String[] {"NIS", "Nama", "Alamat"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Tabel tidak bisa diedit langsung
+                return false; 
             }
         };
         table = new JTable(tableModel);
         return new JScrollPane(table);
     }
     
-    // --- Data Management Methods ---
-
-    private void loadData() { //
+    private void loadData() { 
         try {
-            dataList = FileManager.loadList(FileManager.SISWA_FILE, Siswa::fromFileString); //
+            dataList = FileManager.loadList(FileManager.SISWA_FILE, Siswa::fromFileString); 
             refreshTable();
         } catch (IOException ex) {
-            // Penanganan Exception I/O File
-            JOptionPane.showMessageDialog(this, "Error saat memuat data Siswa: " + ex.getMessage(), "Kesalahan I/O File", JOptionPane.ERROR_MESSAGE); //
+            JOptionPane.showMessageDialog(this, "Error saat memuat data Siswa: " + ex.getMessage(), "Kesalahan I/O File", JOptionPane.ERROR_MESSAGE); 
         }
     }
 
@@ -130,7 +127,7 @@ public class SiswaPanel extends JPanel {
         }
     }
 
-    private void addData() { // Event Listener Implementation
+    private void addData() { 
         String nis = nisField.getText().trim();
         String nama = namaField.getText().trim();
         String alamat = alamatField.getText().trim();
@@ -149,18 +146,17 @@ public class SiswaPanel extends JPanel {
         try {
             Siswa baru = new Siswa(nis, nama, alamat);
             dataList.add(baru);
-            // Operasi I/O File: Simpan List yang sudah diperbarui ke file
-            FileManager.saveList(FileManager.SISWA_FILE, dataList); //
+            // Simpan List yang sudah diperbarui ke file
+            FileManager.saveList(FileManager.SISWA_FILE, dataList); 
             refreshTable();
             clearForm();
             JOptionPane.showMessageDialog(this, "Data Siswa berhasil ditambah!");
         } catch (IOException ex) {
-            // Penanganan Exception I/O File
-            JOptionPane.showMessageDialog(this, "Error saat menyimpan data: " + ex.getMessage(), "Kesalahan I/O File", JOptionPane.ERROR_MESSAGE); //
+            JOptionPane.showMessageDialog(this, "Error saat menyimpan data: " + ex.getMessage(), "Kesalahan I/O File", JOptionPane.ERROR_MESSAGE); 
         }
     }
 
-    private void updateData() { // Event Listener Implementation
+    private void updateData() {
         int selectedRow = table.getSelectedRow();
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(this, "Pilih baris di tabel yang ingin diubah!", "Peringatan", JOptionPane.WARNING_MESSAGE);
@@ -186,7 +182,7 @@ public class SiswaPanel extends JPanel {
                 }
             }
 
-            // Operasi I/O File: Simpan perubahan ke file
+            // Simpan perubahan ke file
             FileManager.saveList(FileManager.SISWA_FILE, dataList); //
             refreshTable();
             clearForm();
@@ -197,7 +193,7 @@ public class SiswaPanel extends JPanel {
         }
     }
 
-    private void deleteData() { // Event Listener Implementation
+    private void deleteData() {
         int selectedRow = table.getSelectedRow();
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(this, "Pilih data yang ingin dihapus!", "Peringatan", JOptionPane.WARNING_MESSAGE);
@@ -210,14 +206,12 @@ public class SiswaPanel extends JPanel {
             try {
                 dataList.remove(selectedRow);
 
-                // Operasi I/O File: Simpan List tanpa data yang dihapus
-                FileManager.saveList(FileManager.SISWA_FILE, dataList); //
+                FileManager.saveList(FileManager.SISWA_FILE, dataList); 
                 refreshTable();
                 clearForm();
                 JOptionPane.showMessageDialog(this, "Data berhasil dihapus!");
             } catch (IOException ex) {
-                // Penanganan Exception I/O File
-                JOptionPane.showMessageDialog(this, "Error saat menghapus data: " + ex.getMessage(), "Kesalahan I/O File", JOptionPane.ERROR_MESSAGE); //
+                JOptionPane.showMessageDialog(this, "Error saat menghapus data: " + ex.getMessage(), "Kesalahan I/O File", JOptionPane.ERROR_MESSAGE); 
             }
         }
     }
